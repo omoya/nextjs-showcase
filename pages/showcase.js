@@ -58,7 +58,7 @@ const Showcase = () => {
   }, []);
 
   console.log("profiles", profiles);
-  console.log("env", process.env);
+  console.log("env", process.env.client_id);
 
   return (
     <>
