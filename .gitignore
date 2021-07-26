@@ -35,4 +35,4 @@ yarn-error.log*
 
 # custom
 .env.local
-next.config.js
+
