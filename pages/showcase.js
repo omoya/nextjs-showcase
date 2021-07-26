@@ -12,8 +12,8 @@ import axios from "axios";
 
 import getConfig from "next/config";
 
-const { publicRuntimeConfig } = getConfig();
-console.log("public", publicRuntimeConfig);
+// const { publicRuntimeConfig } = getConfig();
+// console.log("public", publicRuntimeConfig);
 
 const ITEMS = [...Array(30)].map((_, i) => `Item ${i}`);
 
@@ -51,13 +51,14 @@ const Showcase = () => {
       }
     }
 
-    getProfiles(publicRuntimeConfig.clientId);
+    getProfiles(process.env.clientId);
     return () => {
       null;
     };
   }, []);
 
-  // console.log(profiles);
+  console.log("profiles", profiles);
+  console.log("env", process.env);
 
   return (
     <>
