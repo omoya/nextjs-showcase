@@ -10,13 +10,6 @@ import {
 import Image from "next/image";
 import axios from "axios";
 
-import getConfig from "next/config";
-
-// const { publicRuntimeConfig } = getConfig();
-// console.log("public", publicRuntimeConfig);
-
-const ITEMS = [...Array(30)].map((_, i) => `Item ${i}`);
-
 const createItemRow = (item, index) => {
   return (
     <TouchableOpacity key={index} style={[styles.item]}>
@@ -56,9 +49,6 @@ const Showcase = () => {
       null;
     };
   }, []);
-
-  console.log("profiles", profiles);
-  console.log("env", process.env);
 
   return (
     <>
