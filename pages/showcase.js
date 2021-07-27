@@ -42,7 +42,7 @@ const Showcase = () => {
         const response = await axios.get("/api/products");
         console.log(response);
 
-        setProfiles(response.results);
+        setProfiles(response.data.results);
       } catch (error) {
         console.error(error);
       }
