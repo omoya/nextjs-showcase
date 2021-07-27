@@ -16,6 +16,6 @@ export default function handler(req, res) {
       }
     }
 
-    getProfiles(process.env.clientId);
+    getProfiles(process.env.client_id);
   }
 }
