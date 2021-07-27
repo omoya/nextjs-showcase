@@ -13,7 +13,13 @@ import axios from "axios";
 const createItemRow = (item, index) => {
   return (
     <TouchableOpacity key={index} style={[styles.item]}>
-      <Image src={item.image_url} alt="Avatar" layout="fill" />
+      <Image
+        src={item.image_url}
+        alt="Avatar"
+        layout="fill"
+        placeholder="blur"
+        blurDataURL={item.thumb_url}
+      />
     </TouchableOpacity>
   );
 };
@@ -30,21 +36,19 @@ const Showcase = () => {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    async function getProfiles(client_id) {
+    async function getProfiles() {
       try {
         // const response = await axios.get("https://reqres.in/api/users?page=2");
-        const response = await axios.get(
-          `https://api.boardgameatlas.com/api/search?limit=100&order_by=deadline&kickstarter=true&ascending=false&client_id=${client_id}`
-        );
+        const response = await axios.get("/api/products");
         console.log(response);
 
-        setProfiles(response.data.games);
+        setProfiles(response.results);
       } catch (error) {
         console.error(error);
       }
     }
 
-    getProfiles(process.env.clientId);
+    getProfiles();
     return () => {
       null;
     };
