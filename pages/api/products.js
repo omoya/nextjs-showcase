@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export default function handler(req, res) {
-  console.log(process.env);
   if (req.method === "GET") {
     async function getProfiles(client_id) {
       try {

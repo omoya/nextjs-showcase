@@ -12,15 +12,26 @@ import axios from "axios";
 
 const createItemRow = (item, index) => {
   return (
-    <TouchableOpacity key={index} style={[styles.item]}>
-      <Image
-        src={item.image_url}
-        alt="Avatar"
-        layout="fill"
-        placeholder="blur"
-        blurDataURL={item.thumb_url}
-      />
-    </TouchableOpacity>
+    <div className="flip-card">
+      <div className="flip-card-inner">
+        <div className="flip-card-front">
+          <TouchableOpacity key={index} style={[styles.item]}>
+            <Image
+              src={item.image_url}
+              alt="Avatar"
+              layout="fill"
+              placeholder="blur"
+              blurDataURL={item.thumb_url}
+            />
+          </TouchableOpacity>
+        </div>
+        <div className="flip-card-back">
+          <h1>John Doe</h1>
+          <p>Architect & Engineer</p>
+          <p>We love that guy</p>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -40,7 +51,6 @@ const Showcase = () => {
       try {
         // const response = await axios.get("https://reqres.in/api/users?page=2");
         const response = await axios.get("/api/products");
-        console.log(response);
 
         setProfiles(response.data.results);
       } catch (error) {
