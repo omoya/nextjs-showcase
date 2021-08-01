@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native-web";
+import { CaretLeftFilled, CaretRightFilled } from "@ant-design/icons";
 import Image from "next/image";
 import axios from "axios";
 
@@ -42,9 +43,36 @@ function Divider() {
 const Showcase = () => {
   const [scrollEnabled, setEnabled] = useState(true);
   const [throttle, setThrottle] = useState(16);
-  const [leftButtonTitle, setLeftButtonTitle] = useState("Left");
+  const [offsetX, setOffsetX] = useState(0);
+  const [layoutWidth, setLayoutWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : null
+  );
+
   const [profiles, setProfiles] = useState([]);
   const scrollRef = useRef(null);
+
+  // console.log("vw", window.innerWidth);
+
+  const handleScroll = (event) => {
+    event.nativeEvent.contentOffset.x !== offsetX
+      ? setOffsetX(event.nativeEvent.contentOffset.x)
+      : null;
+    event.nativeEvent.layoutMeasurement.width !== layoutWidth
+      ? setLayoutWidth(event.nativeEvent.layoutMeasurement.width)
+      : null;
+  };
+
+  const handleLeftButton = () => {
+    console.log(offsetX, layoutWidth);
+    console.log(offsetX + layoutWidth);
+    scrollRef.current.scrollTo({ x: offsetX - layoutWidth });
+  };
+
+  const handleRightButton = () => {
+    console.log(offsetX, layoutWidth);
+    console.log(offsetX + layoutWidth);
+    scrollRef.current.scrollTo({ x: offsetX + layoutWidth });
+  };
 
   useEffect(() => {
     async function getProfiles() {
@@ -69,72 +97,29 @@ const Showcase = () => {
       <div>
         <View style={styles.container}>
           <ScrollView
-            // onScroll={() => {
-            //   console.log("onScroll");
-            // }}
+            onScroll={handleScroll}
             horizontal={true}
+            pagingEnabled={true}
             ref={scrollRef}
             scrollEnabled={scrollEnabled}
-            scrollEventThrottle={throttle}
+            // scrollEventThrottle={throttle}
             style={[styles.scrollView, !scrollEnabled && styles.disabled]}
           >
             {profiles && profiles.length > 0 && profiles.map(createItemRow)}
           </ScrollView>
 
-          <View style={styles.floating}>
+          <View style={styles.leftButton}>
             <Button
-              // onPress={() => {
-              //   setEnabled((val) => !val);
-              // }}
-              // onMouseOver={(event) => console.log(event)}
-              title={leftButtonTitle}
+              onPress={handleLeftButton}
+              title={<CaretLeftFilled style={{ fontSize: 40 }} />}
+              color={"transparent"}
             />
           </View>
-
-          <View style={styles.buttons}>
+          <View style={styles.rightButton}>
             <Button
-              // onPress={() => {
-              //   setEnabled((val) => !val);
-              // }}
-              onMouseOver={(event) => console.log(event)}
-              title={scrollEnabled ? "Disable" : "Enable"}
-            />
-            <Divider />
-            <Button
-              onPress={() => {
-                setThrottle((val) => (val !== 16 ? 16 : 1000));
-              }}
-              title="Throttle"
-            />
-            <Divider />
-            <Button
-              style={{ height: 200 }}
-              onPress={() => {
-                setThrottle((val) => (val !== 16 ? 16 : 1000));
-              }}
-              title="Throttle"
-            />
-          </View>
-          <View style={styles.buttons}>
-            <Button
-              onPress={() => {
-                scrollRef.current.scrollTo({ y: 0 });
-              }}
-              title="To start"
-            />
-            <Divider />
-            <Button
-              onPress={() => {
-                scrollRef.current.scrollTo({ y: 50 });
-              }}
-              title="To 50px"
-            />
-            <Divider />
-            <Button
-              onPress={() => {
-                scrollRef.current.scrollToEnd({ animated: true });
-              }}
-              title="To end"
+              onPress={handleRightButton}
+              title={<CaretRightFilled style={{ fontSize: 40 }} />}
+              color={"transparent"}
             />
           </View>
         </View>
@@ -178,10 +163,22 @@ const styles = StyleSheet.create({
   divider: {
     width: "1rem",
   },
-  floating: {
-    width: 50,
+  leftButton: {
+    backgroundColor: "none",
+    width: 10,
+    height: 10,
     position: "fixed",
-    left: 20,
+    left: 40,
+    top: 300,
+  },
+
+  rightButton: {
+    backgroundColor: "none",
+    width: 10,
+    height: 10,
+    position: "fixed",
+    right: 50,
+    top: 300,
   },
 });
 
