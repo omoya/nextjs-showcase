@@ -125,3 +125,48 @@ body {
     opacity: 0.3;
   }
 }
+
+/* Tilt effect*/
+.product_deleted {
+  height: "100vh";
+  width: "100vw";
+  position: "fixed";
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: flash_red 0.3s ease-in-out;
+}
+
+.product_favorited {
+  height: "100vh";
+  width: "100vw";
+  position: "fixed";
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: flash_green 0.3s ease-in-out;
+}
+
+@keyframes flash_green {
+  100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(0, 128, 0, 0.5);
+  }
+  0% {
+    background-color: transparent;
+  }
+}
+
+@keyframes flash_red {
+  100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+  0% {
+    background-color: transparent;
+  }
+}

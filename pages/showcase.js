@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Linking,
+  PanResponder,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -38,9 +39,31 @@ const Showcase = () => {
   const [layoutWidth, setLayoutWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : null
   );
-
   const [profiles, setProfiles] = useState([]);
+  const [productActionStyle, setProductActionStyle] = useState(null);
   const scrollRef = useRef(null);
+
+  const panResponder = React.useMemo(
+    () =>
+      PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+
+        // onPanResponderMove could be an alternative handler if the Release does not perform well
+        onPanResponderRelease: (e, gesture) => {
+          if (gesture.moveY < gesture.y0 && gesture.y0 - gesture.moveY > 50) {
+            console.log("Deleting entry", gesture.moveY, gesture.y0);
+            setProductActionStyle("product_deleted");
+          } else if (
+            gesture.moveY > gesture.y0 &&
+            gesture.moveY - gesture.y0 > 50
+          ) {
+            console.log("Stored as favorite", gesture.moveY, gesture.y0);
+            setProductActionStyle("product_favorited");
+          } else console.log("Nothing happens", gesture.moveY, gesture.y0);
+        },
+      }),
+    []
+  );
 
   const animationHandler = () =>
     rotated ? setRotated(false) : setRotated(true);
@@ -93,7 +116,7 @@ const Showcase = () => {
                       width: "6vw",
                       height: "6vw",
                       color: "white",
-                      zIndex: 1,
+                      zIndex: 2,
                       backgroundColor: "rgba(50,50,50,0.7)",
                       borderRadius: "50%",
                       justifyContent: "center",
@@ -113,7 +136,7 @@ const Showcase = () => {
                       width: "6vw",
                       height: "6vw",
                       color: "white",
-                      zIndex: 1,
+                      zIndex: 2,
                       backgroundColor: "rgba(50,50,50,0.7)",
                       borderRadius: "50%",
                       justifyContent: "center",
@@ -145,7 +168,7 @@ const Showcase = () => {
                       width: "6vw",
                       height: "6vw",
                       color: "white",
-                      zIndex: 1,
+                      zIndex: 2,
                       backgroundColor: "rgba(50,50,50,0.7)",
                       borderRadius: "50%",
                       justifyContent: "center",
@@ -259,6 +282,7 @@ const Showcase = () => {
             style={{
               backgroundColor: "#eeeeee",
               height: "100vh",
+              zIndex: 0,
             }}
           >
             {profiles && profiles.length > 0 && profiles.map(createItemRow)}
@@ -272,6 +296,7 @@ const Showcase = () => {
               position: "fixed",
               left: 40,
               top: 300,
+              zIndex: 3,
             }}
           >
             <Button
@@ -288,6 +313,7 @@ const Showcase = () => {
               position: "fixed",
               right: 50,
               top: 300,
+              zIndex: 3,
             }}
           >
             <Button
@@ -296,6 +322,30 @@ const Showcase = () => {
               color={"transparent"}
             />
           </View>
+          <View
+            {...panResponder.panHandlers}
+            style={{
+              height: "100vh",
+              width: "100vw",
+              backgroundColor: "transparent",
+              position: "fixed",
+              top: 0,
+              left: 0,
+              zIndex: 2,
+            }}
+          ></View>
+          <div
+            className={productActionStyle}
+            style={{
+              height: "100vh",
+              width: "100vw",
+              position: "fixed",
+              // backgroundColor: "red",
+              top: 0,
+              left: 0,
+              zIndex: 1,
+            }}
+          ></div>
         </View>
       </div>
     </>
