@@ -25,11 +25,11 @@ export default function Home() {
               <p>Tip: put some in your wishlist</p>
             </a>
           </Link>
-          <Link href="/drag">
+          {/* <Link href="/drag">
             <a className={styles.card}>
               <h2>Pan &rarr;</h2>
             </a>
-          </Link>
+          </Link> */}
 
           <a href="https://nextjs.org/learn" className={styles.card}>
             <h2>List &rarr;</h2>
