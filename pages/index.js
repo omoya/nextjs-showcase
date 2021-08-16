@@ -21,15 +21,10 @@ export default function Home() {
           <Link href="/showcase">
             <a className={styles.card}>
               <h2>Discover &rarr;</h2>
-              <p>Find games you didn't know yet</p>
+              <p>Find games you didn&apos;t know yet</p>
               <p>Tip: put some in your wishlist</p>
             </a>
           </Link>
-          {/* <Link href="/drag">
-            <a className={styles.card}>
-              <h2>Pan &rarr;</h2>
-            </a>
-          </Link> */}
 
           <a href="https://nextjs.org/learn" className={styles.card}>
             <h2>List &rarr;</h2>
@@ -50,7 +45,7 @@ export default function Home() {
           >
             <h2>Secret area &rarr;</h2>
             <p>Join us to get a lot more!</p>
-            <p>sssssh... don't tell anybody what you'll find here</p>
+            <p>sssssh... don&apos;t tell anybody what you&apos;ll find here</p>
           </a>
         </div>
       </main>
