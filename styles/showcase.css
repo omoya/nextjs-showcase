@@ -34,7 +34,94 @@
 }
 
 .flip-card-back {
-  background-color: #2980b9;
+  background-color: black;
   color: white;
   transform: rotateY(180deg);
+}
+
+body {
+  background-color: #ece5da;
+  text-align: center;
+}
+.product_front {
+  height: 10vh;
+  width: 100vw;
+  background: black;
+}
+
+.product_front_background {
+  background-color: #cccccc;
+  border-radius: 3;
+  width: 100vw;
+  height: 75vh;
+  z-index: 0;
+}
+
+.game_h3 {
+  /* margin: 20px; */
+  font-family: "Paytone One";
+  color: #202020;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.game_h3_span {
+  display: block;
+  padding-top: 20px;
+  margin: 0px 0 17px 0;
+  font-size: 30px;
+  line-height: 30px;
+  color: #f1ebe5;
+  text-shadow: 0 13.36px 8.896px #c4b59d, 0 -2px 1px #fff;
+  letter-spacing: -2px;
+}
+
+.description_span {
+  display: block;
+  padding-top: 20px;
+  margin: 0px 0 17px 0;
+  font-size: 30px;
+  line-height: 35px;
+  color: #f1ebe5;
+  font-family: "Paytone One";
+  text-shadow: 0 9px 6px #c4b59d, 0 -2px 1px #fff;
+  /* letter-spacing: -2px; */
+}
+
+.my_arrow {
+  animation: animate-arrow-2 1s ease-in-out infinite 0.1s;
+}
+
+@keyframes animate-arrow-1 {
+  0% {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  70%,
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes animate-arrow-2 {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  70%,
+  100% {
+    transform: translateX(0px);
+    opacity: 0.5;
+  }
+}
+@keyframes animate-arrow-3 {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  70%,
+  100% {
+    transform: translateX(0px);
+    opacity: 0.3;
+  }
 }
