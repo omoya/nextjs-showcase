@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
+  Dimensions,
   Linking,
   PanResponder,
   ScrollView,
@@ -43,6 +44,10 @@ const Showcase = () => {
   const [productActionStyle, setProductActionStyle] = useState(null);
   const scrollRef = useRef(null);
 
+  const WINDOW_WIDTH = Dimensions.get("window").width;
+  const WINDOW_HEIGHT = Dimensions.get("window").height;
+  console.log("Dimensions", Dimensions);
+
   const panResponder = React.useMemo(
     () =>
       PanResponder.create({
@@ -51,11 +56,13 @@ const Showcase = () => {
         // onPanResponderMove could be an alternative handler if the Release does not perform well
         onPanResponderRelease: (e, gesture) => {
           if (gesture.moveX < gesture.x0 && gesture.x0 - gesture.moveX > 50) {
+            console.log("Move", offsetX, layoutWidth);
             handleRightButton();
           } else if (
             gesture.moveX > gesture.x0 &&
             gesture.moveX - gesture.x0 > 50
           ) {
+            console.log("Move", offsetX, layoutWidth);
             handleLeftButton();
           } else if (
             gesture.moveY < gesture.y0 &&
@@ -72,7 +79,7 @@ const Showcase = () => {
           } else console.log("Nothing happens", gesture.moveY, gesture.y0);
         },
       }),
-    []
+    [handleLeftButton, handleRightButton, layoutWidth, offsetX]
   );
 
   const animationHandler = () =>
@@ -246,11 +253,13 @@ const Showcase = () => {
   };
 
   const handleLeftButton = () => {
+    console.log("offset, layoutw", offsetX, layoutWidth);
     scrollRef.current.scrollTo({ x: offsetX - layoutWidth });
     setRotated(false);
   };
 
   const handleRightButton = () => {
+    console.log("offset, layoutw", offsetX, layoutWidth);
     scrollRef.current.scrollTo({ x: offsetX + layoutWidth });
     setRotated(false);
   };
