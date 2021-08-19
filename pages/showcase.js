@@ -79,7 +79,7 @@ const Showcase = () => {
           } else console.log("Nothing happens", gesture.moveY, gesture.y0);
         },
       }),
-    [handleLeftButton, handleRightButton, layoutWidth, offsetX]
+    [layoutWidth, offsetX]
   );
 
   const animationHandler = () =>
