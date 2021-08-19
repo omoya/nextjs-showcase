@@ -50,7 +50,17 @@ const Showcase = () => {
 
         // onPanResponderMove could be an alternative handler if the Release does not perform well
         onPanResponderRelease: (e, gesture) => {
-          if (gesture.moveY < gesture.y0 && gesture.y0 - gesture.moveY > 50) {
+          if (gesture.moveX < gesture.x0 && gesture.x0 - gesture.moveX > 50) {
+            handleRightButton();
+          } else if (
+            gesture.moveX > gesture.x0 &&
+            gesture.moveX - gesture.x0 > 50
+          ) {
+            handleLeftButton();
+          } else if (
+            gesture.moveY < gesture.y0 &&
+            gesture.y0 - gesture.moveY > 50
+          ) {
             console.log("Deleting entry", gesture.moveY, gesture.y0);
             setProductActionStyle("product_deleted");
           } else if (
